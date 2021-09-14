@@ -1,7 +1,8 @@
 const assert = require('assert');
 const GameEngine = require("../../src/engine/game_engine");
 const RigidBody = require("../../src/engine/rigid_body");
-const Force = require("../../src/engine/force");
+const {Force} = require("../../src/engine/force");
+const RigidBodyState = require("../../src/engine/rigid_body_state");
 
 describe('Game Engine', function() {
     it('should increment step', function() {
@@ -16,26 +17,30 @@ describe('Game Engine', function() {
         const someId = 1;
         const someStep = 1;
         const initialPosition = [0,0];
+        const initialVelocity = [0,0];
+        const initialState = new RigidBodyState(initialPosition, initialVelocity, 0);
 
         let engine = new GameEngine(null)
         let body = new RigidBody(1, someId)
 
-        engine.registerBody(body, initialPosition);
+        engine.registerBody(body, initialPosition, initialVelocity);
 
         it('should contain GameObject', function() {
-            assert.equal(Object.keys(engine.gameObjectsPositions).length, 1);
-            assert.equal(engine.gameObjectsPositions[someId], initialPosition);
+            assert.equal(Object.keys(engine.gameObjectStates).length, 1);
+            assert.deepEqual(engine.gameObjectStates[someId], initialState);
         });
 
         it('should move body', function() {
             const someMagnitude = [1,1]
             body.applyForce(new Force(someMagnitude, someStep))
 
-            assert.equal(engine.getPosition(body), initialPosition);
+            assert.deepEqual(engine.updateBody(body), initialState);
 
             engine.incrementStep();
 
-            assert.equal(engine.getPosition(body), initialPosition + someMagnitude);
+            let resultState = engine.updateBody(body);
+            assert.deepEqual(resultState.p[1], [1,1]);
+            assert.deepEqual(resultState.v[1], [1,1]);
         });
     })
 });

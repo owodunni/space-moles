@@ -1,3 +1,5 @@
+const {splitForces} = require("./force");
+
 module.exports = class RigidBody {
     constructor(mass, id) {
         this.id = id;
@@ -10,8 +12,8 @@ module.exports = class RigidBody {
     }
 
     popForces(timeStamp){
-        let pastForces = this.forces.filter(force => force.timeStamp <= timeStamp);
-        this.forces = this.forces.filter(force => force.timeStamp > timeStamp);
+        let {pastForces, futureForces} = splitForces(this.forces, timeStamp);
+        this.forces = futureForces;
         return pastForces;
     }
 }

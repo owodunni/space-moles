@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Force = require("../../src/engine/force");
+const {Force} = require("../../src/engine/force");
 const RigidBody = require("../../src/engine/rigid_body");
 describe('RigidBody', function() {
     it('should create a RigidBody', function() {

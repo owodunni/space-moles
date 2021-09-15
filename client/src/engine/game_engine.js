@@ -25,4 +25,9 @@ module.exports = class GameEngine {
         state.updateState(unAppliedForces, body.mass, this.step);
         return state;
     }
+
+    getKinematics(body, timeStamp){
+        let state = this.gameObjectStates[body.id];
+        return state.getKinematics(timeStamp);
+    }
 }

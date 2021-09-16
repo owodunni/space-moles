@@ -23,7 +23,7 @@ module.exports = class Game{
         if(this.numbBoies === this.maxObjects)
             return null;
         const body = new RigidBody(this.numbBoies, randInt(1,100));
-        this.engine.registerBody(body, [randInt(0,100), randInt(0,100)], [Math.random()*4, Math.random()*4])
+        this.engine.registerBody(body, [randInt(0,100), randInt(0,100)], [Math.random()*8-4, Math.random()*8-4])
         this.bodies[this.numbBoies] = body;
         this.numbBoies++;
         return body;

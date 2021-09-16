@@ -1,3 +1,7 @@
+function mod(n, m) {
+    return ((n % m) + m) % m;
+}
+
 module.exports = class World{
     constructor(props) {
         this.width = props.width;
@@ -6,7 +10,7 @@ module.exports = class World{
     }
 
     getPosition(p){
-        return [p[0]%this.width, p[1]%this.height]
+        return [mod(p[0], this.width), mod(p[1], this.height)]
     }
 
     getVelocity(v){

@@ -33,4 +33,8 @@ module.exports = class Game{
         const {p, v} =this.engine.getKinematics(body, this.engine.step);
         return p;
     }
+
+    step(){
+        this.engine.incrementStep();
+    }
 }

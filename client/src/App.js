@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <GameBoard game={game} bodies={bodies} setBodies={setBodies}/>
+        <GameBoard game={game} bodies={bodies} />
         <GameControl game={game} bodies={bodies} setBodies={setBodies} />
       </header>
     </div>

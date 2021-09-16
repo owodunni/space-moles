@@ -31,7 +31,7 @@ module.exports = class RigidBodyState {
     }
 
     getKinematics(t){
-        let p = calculatePosition(this.p, this.v, t - this.t);
+        let p = this.world.getPosition(calculatePosition(this.p, this.v, t - this.t));
         let v = this.v
         return {p, v};
     }

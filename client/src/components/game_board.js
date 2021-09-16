@@ -2,7 +2,7 @@ import '../App.css'
 import {Body} from "./body";
 
 export function GameBoard(props){
-    const {game, bodies, setBodies} = props
+    const {game, bodies} = props
 
     function getPos(body){
         return game.getPosition(body)

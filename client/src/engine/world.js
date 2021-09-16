@@ -1,9 +1,9 @@
-function mod(n, m) {
-    return Math.floor(((n % m) + m) % m);
-}
-
 function round(v){
     return Math.round(v*100)/(100)
+}
+
+function mod(n, m) {
+    return round(((n % m) + m) % m);
 }
 
 function roundV(v){

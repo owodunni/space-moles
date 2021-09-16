@@ -8,7 +8,7 @@ import Game from "./engine/game";
 
 function App() {
 
-    const [game, setGame] = useState(new Game({worldProps: {height:100, width:100, speedLimit:10 }, maxObjects:10}))
+    const [game] = useState(new Game({worldProps: {height:100, width:100, speedLimit:10 }, maxObjects:10}))
     const [bodies, setBodies] = useState([])
 
   return (

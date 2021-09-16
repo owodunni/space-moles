@@ -1,5 +1,6 @@
 const assert = require('assert');
 const Game = require("../../src/engine/game");
+const {Force} = require("../../src/engine/force");
 
 describe('Game', function() {
     let game = null;
@@ -21,5 +22,43 @@ describe('Game', function() {
         let body = game.createBody();
         assert.ok(game.getKinematics(body).p);
         assert.ok(game.getKinematics(body).v);
+    })
+
+    it('should apply force', function () {
+        const someMass = 1;
+        const somePosition = [0,0];
+        const someVelocity = [0,0];
+
+        game.mpvGenerator = () => { return {m: someMass, p: somePosition, v: someVelocity};};
+        let body = game.createBody();
+        let pv = game.getKinematics(body);
+
+        assert.deepEqual(body.mass, someMass);
+        assert.deepEqual(pv.p, somePosition);
+        assert.deepEqual(pv.v, someVelocity);
+
+        game.applyForce(body.id, new Force([1.5, 2], 2))
+        let step = game.step();
+
+        game.updateBody(body.id)
+
+        pv = game.getKinematics(body);
+
+        assert.equal(body.forces.length, 1)
+        assert.equal(step, 1);
+        assert.deepEqual(pv.p, somePosition);
+        assert.deepEqual(pv.v, someVelocity);
+
+        game.step();
+        step = game.step();
+        step = game.step();
+
+        game.updateBody(body.id)
+
+        pv = game.getKinematics(body);
+
+        assert.equal(step, 4);
+        assert.deepEqual(pv.p, [1.5*2,2*2]);
+        assert.deepEqual(pv.v, [1.5, 2]);
     })
 });

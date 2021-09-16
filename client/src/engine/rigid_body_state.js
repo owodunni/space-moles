@@ -12,20 +12,21 @@ module.exports = class RigidBodyState {
         this.world = world;
     }
 
-    updateState(forces, mass, t){
+    updateState(forces, mass, now){
 
         // Remove all forces that have not happened
-        const {pastForces, _} = splitForces(forces, t);
+        const {pastForces, _} = splitForces(forces, now);
 
         // Remove all forces that have already happened
         let {__, futureForces} = splitForces(pastForces, this.t);
 
         futureForces.forEach( force => {
+            let deltaT = force.timeStamp - this.t;
+            //Calculate position of the time of the forces impact
+            this.p = this.world.getPosition(calculatePosition(this.p, this.v, deltaT))
             this.v = this.world.getVelocity([
                 this.v[0] + force.magnitude[0]/mass,
                 this.v[1] + force.magnitude[1]/mass]);
-            let deltaT = force.timeStamp - this.t;
-            this.p = this.world.getPosition(calculatePosition(this.p, this.v, deltaT));
             this.t = force.timeStamp;
         });
     }

@@ -1,4 +1,3 @@
-import '../App.css'
 import {Body} from "./body";
 
 export function GameBoard(props){

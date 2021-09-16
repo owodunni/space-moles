@@ -1,4 +1,4 @@
-module.exports = class GameWorld{
+module.exports = class World{
     constructor(props) {
         this.width = props.width;
         this.height = props.height;

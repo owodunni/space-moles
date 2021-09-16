@@ -6,8 +6,8 @@ function calculatePosition(p, v, deltaT){
 
 module.exports = class RigidBodyState {
     constructor(p, v, t, world) {
-        this.v = v
-        this.p = p;
+        this.v = world.getVelocity(v);
+        this.p = world.getPosition(p);
         this.t = t;
         this.world = world;
     }

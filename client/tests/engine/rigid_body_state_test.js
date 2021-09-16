@@ -1,7 +1,7 @@
 const assert = require('assert');
 const RigidBodyState = require("../../src/engine/rigid_body_state");
 const {Force} = require("../../src/engine/force");
-const GameBoard = require("../../src/engine/game_board");
+const GameBoard = require("../../src/engine/world");
 
 describe('RigidBodyState', function() {
     it('should update state', function() {

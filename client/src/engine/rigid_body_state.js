@@ -5,11 +5,11 @@ function calculatePosition(p, v, deltaT){
 }
 
 module.exports = class RigidBodyState {
-    constructor(p, v, t, board) {
+    constructor(p, v, t, world) {
         this.v = v
         this.p = p;
         this.t = t;
-        this.board = board;
+        this.world = world;
     }
 
     updateState(forces, mass, t){
@@ -21,11 +21,11 @@ module.exports = class RigidBodyState {
         let {__, futureForces} = splitForces(pastForces, this.t);
 
         futureForces.forEach( force => {
-            this.v = this.board.getVelocity([
+            this.v = this.world.getVelocity([
                 this.v[0] + force.magnitude[0]/mass,
                 this.v[1] + force.magnitude[1]/mass]);
             let deltaT = force.timeStamp - this.t;
-            this.p = this.board.getPosition(calculatePosition(this.p, this.v, deltaT));
+            this.p = this.world.getPosition(calculatePosition(this.p, this.v, deltaT));
             this.t = force.timeStamp;
         });
     }

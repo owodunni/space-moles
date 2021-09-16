@@ -1,15 +1,15 @@
 const assert = require('assert');
-const GameEngine = require("../../src/engine/game_engine");
+const Engine = require("../../src/engine/engine");
 const RigidBody = require("../../src/engine/rigid_body");
 const {Force} = require("../../src/engine/force");
 const RigidBodyState = require("../../src/engine/rigid_body_state");
-const GameBoard = require("../../src/engine/game_board");
+const GameBoard = require("../../src/engine/world");
 
 const someGameBoard = new GameBoard({width:10, height:10, speedLimit:10});
 
-describe('Game Engine', function() {
+describe('Engine', function() {
     it('should increment step', function() {
-        let engine = new GameEngine(someGameBoard)
+        let engine = new Engine(someGameBoard)
         assert.equal(engine.step, 0);
 
         engine.incrementStep();
@@ -30,7 +30,7 @@ describe('Game Engine', function() {
         let body = null;
 
         beforeEach(function () {
-            engine = new GameEngine(someGameBoard);
+            engine = new Engine(someGameBoard);
             body = new RigidBody(1, someId);
 
             engine.registerBody(body, [...initialPosition], [...initialVelocity]);

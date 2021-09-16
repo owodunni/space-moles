@@ -1,8 +1,8 @@
 const RigidBodyState = require("./rigid_body_state");
 
-module.exports = class GameEngine {
-    constructor(gameBoard) {
-        this.gameBoard = gameBoard;
+module.exports = class Engine {
+    constructor(world) {
+        this.world = world;
         this.gameObjectStates = {}
         this.step = 0
     }
@@ -12,7 +12,7 @@ module.exports = class GameEngine {
     }
 
     registerBody(body, p, v){
-        this.gameObjectStates[body.id] = new RigidBodyState(p, v, this.step, this.gameBoard);
+        this.gameObjectStates[body.id] = new RigidBodyState(p, v, this.step, this.world);
     }
 
     updateBody(body){

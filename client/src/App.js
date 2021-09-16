@@ -1,22 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import {GameBoard} from "./components/game_board";
+import {GameControl} from "./components/game_control";
+
+import React, { useState } from 'react';
+import Game from "./engine/game";
 
 function App() {
+
+    const [game, setGame] = useState(new Game({worldProps: {height:100, width:100, speedLimit:10 }, maxObjects:10}))
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <GameBoard/>
+        <GameControl game={game} />
       </header>
     </div>
   );

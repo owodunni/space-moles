@@ -3,16 +3,20 @@ const GameEngine = require("../../src/engine/game_engine");
 const RigidBody = require("../../src/engine/rigid_body");
 const {Force} = require("../../src/engine/force");
 const RigidBodyState = require("../../src/engine/rigid_body_state");
+const GameBoard = require("../../src/engine/game_board");
+
+const someGameBoard = new GameBoard({width:10, height:10, speedLimit:10});
 
 describe('Game Engine', function() {
     it('should increment step', function() {
-        let engine = new GameEngine(null)
+        let engine = new GameEngine(someGameBoard)
         assert.equal(engine.step, 0);
 
         engine.incrementStep();
 
         assert.equal(engine.step, 1);
     });
+
     describe('RigidBody', function () {
         const someId = 1;
         const someStep = 1;
@@ -20,13 +24,13 @@ describe('Game Engine', function() {
         const someForce = new Force([...someMagnitude], someStep)
         const initialPosition = [0,0];
         const initialVelocity = [0,0];
-        const initialState = new RigidBodyState(initialPosition, initialVelocity, 0);
+        const initialState = new RigidBodyState(initialPosition, initialVelocity, 0, someGameBoard);
 
         let engine = null;
         let body = null;
 
         beforeEach(function () {
-            engine = new GameEngine(null);
+            engine = new GameEngine(someGameBoard);
             body = new RigidBody(1, someId);
 
             engine.registerBody(body, [...initialPosition], [...initialVelocity]);
@@ -45,8 +49,8 @@ describe('Game Engine', function() {
             engine.incrementStep();
 
             let resultState = engine.updateBody(body);
-            assert.deepEqual(resultState.p[1], someMagnitude);
-            assert.deepEqual(resultState.v[1], someMagnitude);
+            assert.deepEqual(resultState.p, someMagnitude);
+            assert.deepEqual(resultState.v, someMagnitude);
         });
 
         it('should extrapolate position', function (){

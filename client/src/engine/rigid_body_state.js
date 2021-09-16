@@ -5,44 +5,34 @@ function calculatePosition(p, v, deltaT){
 }
 
 module.exports = class RigidBodyState {
-    constructor(p, v, t) {
-        this.v = {};
-        this.v[t] = v;
-        this.p = {};
-        this.p[t] = p;
-    }
-
-    getLatestKinematics(){
-        let latestT = Math.max.apply(null, Object.keys(this.v));
-        let latestP = this.p[latestT];
-        let latestV = this.v[latestT]
-        return {latestT, latestP, latestV}
+    constructor(p, v, t, board) {
+        this.v = v
+        this.p = p;
+        this.t = t;
+        this.board = board;
     }
 
     updateState(forces, mass, t){
-        let {latestT, latestP, latestV} = this.getLatestKinematics();
 
         // Remove all forces that have not happened
         const {pastForces, _} = splitForces(forces, t);
 
         // Remove all forces that have already happened
-        let {__, futureForces} = splitForces(pastForces, latestT);
+        let {__, futureForces} = splitForces(pastForces, this.t);
 
         futureForces.forEach( force => {
-            latestV[0] = latestV[0] + force.magnitude[0]/mass;
-            latestV[1] = latestV[1] + force.magnitude[1]/mass;
-            let deltaT = force.timeStamp - latestT;
-            latestP = calculatePosition(latestP, latestV, deltaT)
-            latestT = force.timeStamp;
+            this.v = this.board.getVelocity([
+                this.v[0] + force.magnitude[0]/mass,
+                this.v[1] + force.magnitude[1]/mass]);
+            let deltaT = force.timeStamp - this.t;
+            this.p = this.board.getPosition(calculatePosition(this.p, this.v, deltaT));
+            this.t = force.timeStamp;
         });
-        this.p[latestT] = latestP;
-        this.v[latestT] = latestV;
     }
 
     getKinematics(t){
-        let {latestT, latestP, latestV} = this.getLatestKinematics();
-        let p = calculatePosition(latestP, latestV, t - latestT);
-        let v = latestV
+        let p = calculatePosition(this.p, this.v, t - this.t);
+        let v = this.v
         return {p, v};
     }
 }

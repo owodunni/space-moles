@@ -1,5 +1,5 @@
-const {unmountComponentAtNode} = require("react-dom");
 const RigidBodyState = require("./rigid_body_state");
+
 module.exports = class GameEngine {
     constructor(gameBoard) {
         this.gameBoard = gameBoard;
@@ -12,7 +12,7 @@ module.exports = class GameEngine {
     }
 
     registerBody(body, p, v){
-        this.gameObjectStates[body.id] = new RigidBodyState(p, v, this.step);
+        this.gameObjectStates[body.id] = new RigidBodyState(p, v, this.step, this.gameBoard);
     }
 
     updateBody(body){

@@ -1,46 +1,11 @@
 import '../App.css'
 import React, {useEffect, useState} from "react";
-import {Button, Table} from 'react-bootstrap';
+import {Button, Col, Form, Row, Table} from 'react-bootstrap';
+import {GameButtons} from "./game_buttons";
 
 export function GameControl(props){
     const {game, bodies, setBodies} = props
 
-    const [isStarted, setIsStarted] = useState(false)
-    const [canNotCreateMoreBodies, setCanNotCreateMoreBodies] = useState(false);
-    const [stepValue, setStep] = useState(0);
-
-    function createBody(){
-        game.createBody();
-        setBodies(game.getBodies());
-        setCanNotCreateMoreBodies(game.canNotCreateMoreBodies())
-    }
-
-    function step(){
-        setStep(game.step());
-        setBodies(game.getBodies())
-    }
-
-    useEffect(() => {
-        let interval = null;
-        if(isStarted){
-            interval = setInterval(() => {
-                step();
-            }, 100);
-        }else if(interval != null){
-            clearInterval(interval);
-        }
-        return () => clearInterval(interval);
-    }, [isStarted]);
-
-
-    function start(){
-        setIsStarted(true);
-    }
-
-
-    function stop(){
-        setIsStarted(false);
-    }
 
     function getP(body){
         return JSON.stringify(game.getKinematics(body).p)
@@ -52,19 +17,7 @@ export function GameControl(props){
 
     return (
         <div className="GameControl">
-            <Button disabled={canNotCreateMoreBodies} onClick={() => createBody()}>
-                Create Body
-            </Button>
-            <Button disabled={isStarted} onClick={() => start()}>
-                Start
-            </Button>
-            <Button disabled={!isStarted} onClick={() => stop()}>
-                Stop
-            </Button>
-            <br/>
-            <label>
-                TimeStamp: {stepValue}
-            </label>
+            <GameButtons game={game} setBodies={setBodies}/>
             <br/>
             <Table striped bordered hover size="sm" variant="dark" >
                 <thead>
@@ -86,5 +39,37 @@ export function GameControl(props){
                 ))}
                 </tbody>
             </Table>
+            <Form>
+                <Form.Group as={Row} className="mb-3" controlId="id">
+                    <Form.Label column sm="2">
+                        Id
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control placeholder="0" />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="magnitude">
+                    <Form.Label column sm="2">
+                        Magnitude
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control placeholder="[2,3]" />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="time">
+                    <Form.Label column sm="2">
+                        Time
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control placeholder="34" />
+                    </Col>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Queue Force
+                </Button>
+                <Button variant="primary" type="submit">
+                    Update body
+                </Button>
+            </Form>
         </div>)
 }

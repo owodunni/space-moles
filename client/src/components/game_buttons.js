@@ -23,7 +23,7 @@ export function GameButtons(props){
         if(isStarted){
             interval = setInterval(() => {
                 step();
-            }, 100);
+            }, 500);
         }else if(interval != null){
             clearInterval(interval);
         }

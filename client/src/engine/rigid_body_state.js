@@ -29,6 +29,10 @@ module.exports = class RigidBodyState {
                 this.v[1] + force.magnitude[1]/mass]);
             this.t = force.timeStamp;
         });
+        const {p, v} = this.getKinematics(now);
+        this.p = p;
+        this.v = v;
+        this.t = now;
     }
 
     getKinematics(t){

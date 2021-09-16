@@ -12,7 +12,7 @@ describe('RigidBodyState', function() {
         state.updateState([someForce], 1, 1);
 
         assert.deepEqual(state.v, [1, 0]);
-        assert.deepEqual(state.p, [1, 0]);
+        assert.deepEqual(state.p, [0, 0]);
     });
 
     it('should clamp defaults', function (){

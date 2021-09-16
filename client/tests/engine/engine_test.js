@@ -47,6 +47,7 @@ describe('Engine', function() {
             assert.deepEqual(engine.updateBody(body), initialState);
 
             engine.incrementStep();
+            engine.incrementStep();
 
             let resultState = engine.updateBody(body);
             assert.deepEqual(resultState.p, someMagnitude);
@@ -58,7 +59,7 @@ describe('Engine', function() {
             engine.incrementStep();
             engine.updateBody(body);
 
-             let{p, v} = engine.getKinematics(body, 3);
+             let{p, v} = engine.getKinematics(body, 4);
              assert.deepEqual(p, [3,3]);
              assert.deepEqual(v, someMagnitude)
         });

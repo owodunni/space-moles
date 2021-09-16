@@ -3,7 +3,7 @@ const {Force} = require("../../src/engine/force");
 const RigidBody = require("../../src/engine/rigid_body");
 describe('RigidBody', function() {
     it('should create a RigidBody', function() {
-        let body = new RigidBody(10);
+        let body = new RigidBody(1, 10);
         assert.equal(body.mass, 10);
         assert.equal(body.forces.length, 0);
 
@@ -12,7 +12,7 @@ describe('RigidBody', function() {
     });
 
     it('should create a RigidBody', function() {
-        let body = new RigidBody(10);
+        let body = new RigidBody(10, 1);
 
         body.applyForce(new Force([1,2], 0));
         body.applyForce(new Force([1,2], 1));

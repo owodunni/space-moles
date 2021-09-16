@@ -18,7 +18,7 @@ describe('Engine', function() {
     });
 
     describe('RigidBody', function () {
-        const someId = 1;
+        const someId = 1337;
         const someStep = 1;
         const someMagnitude = [1,1]
         const someForce = new Force([...someMagnitude], someStep)
@@ -31,7 +31,7 @@ describe('Engine', function() {
 
         beforeEach(function () {
             engine = new Engine(someGameBoard);
-            body = new RigidBody(1, someId);
+            body = new RigidBody(someId, 1);
 
             engine.registerBody(body, [...initialPosition], [...initialVelocity]);
         });

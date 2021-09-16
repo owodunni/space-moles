@@ -1,7 +1,7 @@
 const {splitForces} = require("./force");
 
 module.exports = class RigidBody {
-    constructor(mass, id) {
+    constructor(id, mass) {
         this.id = id;
         this.mass = mass;
         this.forces = [];

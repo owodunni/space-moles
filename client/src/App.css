@@ -7,7 +7,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  padding-top: 300px;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -21,10 +21,19 @@
   width: 1000px;
   height: 500px;
   background: blueviolet;
+  position: relative;
 }
 
 .GameControl {
+  position: relative;
+  top: 0;
   width: 300px;
-  height: 500px;
-  background: green;
+}
+
+.dot {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
 }

@@ -1,9 +1,9 @@
 import '../App.css'
 import React, {useState} from "react";
+import {Button, Table} from 'react-bootstrap';
 
 export function GameControl(props){
-    const {game} = props
-    const [bodies, setBodies] = useState([])
+    const {game, bodies, setBodies} = props
 
     function createBody(){
         game.createBody();
@@ -12,16 +12,26 @@ export function GameControl(props){
 
     return (
         <div className="GameControl">
-            <button onClick={() => createBody()}>
+            <Button onClick={() => createBody()}>
                 Create Body
-            </button>
+            </Button>
             <ul>
-                {bodies.map((body) => (
-                    <div key={body.id}>
-                        <p>{body.id}</p>
-                        <p>{body.mass}</p>
-                    </div>
-                ))}
             </ul>
+            <Table striped bordered hover size="sm" variant="dark" >
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mass</th>
+                </tr>
+                </thead>
+                <tbody>
+                {bodies.map((body) => (
+                    <tr>
+                        <td>{body.id}</td>
+                        <td>{body.mass}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </Table>
         </div>)
 }

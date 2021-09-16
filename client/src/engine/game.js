@@ -28,4 +28,9 @@ module.exports = class Game{
         this.numbBoies++;
         return body;
     }
+
+    getPosition(body){
+        const {p, v} =this.engine.getKinematics(body, this.engine.step);
+        return p;
+    }
 }

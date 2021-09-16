@@ -19,8 +19,12 @@ module.exports = class Game{
         return this.bodies.filter(n => n);
     }
 
+    canNotCreateMoreBodies(){
+        return this.numbBoies === this.maxObjects
+    }
+
     createBody(){
-        if(this.numbBoies === this.maxObjects)
+        if(this.canNotCreateMoreBodies())
             return null;
         const body = new RigidBody(this.numbBoies, randInt(1,100));
         this.engine.registerBody(body, [randInt(0,100), randInt(0,100)], [Math.random()*8-4, Math.random()*8-4])

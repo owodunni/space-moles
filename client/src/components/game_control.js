@@ -5,12 +5,13 @@ import {Button, Table} from 'react-bootstrap';
 export function GameControl(props){
     const {game, bodies, setBodies} = props
 
-    let started = false
-    const [isStarted, setIsStarted] = useState(started)
+    const [isStarted, setIsStarted] = useState(false)
+    const [canNotCreateMoreBodies, setCanNotCreateMoreBodies] = useState(false);
 
     function createBody(){
         game.createBody();
         setBodies(game.getBodies());
+        setCanNotCreateMoreBodies(game.canNotCreateMoreBodies())
     }
 
     function step(){
@@ -42,7 +43,7 @@ export function GameControl(props){
 
     return (
         <div className="GameControl">
-            <Button onClick={() => createBody()}>
+            <Button disabled={canNotCreateMoreBodies} onClick={() => createBody()}>
                 Create Body
             </Button>
             <Button disabled={isStarted} onClick={() => start()}>

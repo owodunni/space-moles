@@ -1,5 +1,13 @@
 function mod(n, m) {
-    return ((n % m) + m) % m;
+    return Math.floor(((n % m) + m) % m);
+}
+
+function round(v){
+    return Math.round(v*100)/(100)
+}
+
+function roundV(v){
+    return[round(v[0]), round(v[1])];
 }
 
 module.exports = class World{
@@ -16,11 +24,11 @@ module.exports = class World{
     getVelocity(v){
         const absV = Math.sqrt(v[0]*v[0]+v[1]*v[1]);
         if (absV < this.speedLimit){
-            return v;
+            return roundV(v)
         }
 
         const speedRedux = this.speedLimit/absV;
 
-        return [v[0]*speedRedux, v[1]*speedRedux]
+        return roundV([v[0]*speedRedux, v[1]*speedRedux])
     }
 }

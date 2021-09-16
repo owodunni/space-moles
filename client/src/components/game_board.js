@@ -5,7 +5,7 @@ export function GameBoard(props){
     const {game, bodies} = props
 
     function getPos(body){
-        return game.getPosition(body)
+        return game.getKinematics(body).p;
     }
 
     return (

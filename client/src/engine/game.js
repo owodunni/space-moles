@@ -33,12 +33,12 @@ module.exports = class Game{
         return body;
     }
 
-    getPosition(body){
-        const {p, v} =this.engine.getKinematics(body, this.engine.step);
-        return p;
+    getKinematics(body){
+        return this.engine.getKinematics(body, this.engine.step);
     }
 
     step(){
         this.engine.incrementStep();
+        return this.engine.step;
     }
 }

@@ -9,7 +9,6 @@
   flex-direction: row;
   padding-top: 300px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -27,7 +26,7 @@
 .GameControl {
   position: relative;
   top: 0;
-  width: 300px;
+  width: 500px;
 }
 
 .dot {
